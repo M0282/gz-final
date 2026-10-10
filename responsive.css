@@ -1,0 +1,104 @@
+/* One bounded composition per orientation. responsive.js fits the entire stage,
+   including rotation margins, to the viewport. No hidden document overflow. */
+html { overflow-x: clip; }
+body { overflow: visible; }
+.room { width: 100%; height: var(--room-height, 100svh); min-height: 100svh; overflow: clip; }
+.room-header { top: max(18px, env(safe-area-inset-top)); left: max(20px, env(safe-area-inset-left)); right: max(20px, env(safe-area-inset-right)); }
+.room-heading, .room-clock, .room-heading span { color: #535353; }
+.desk { position: absolute; display: block; inset: auto; left: 50%; top: var(--stage-top, 74px); margin: 0; width: 1400px; height: 900px; max-width: none; overflow: visible; transform: translateX(-50%) scale(var(--desk-scale, .7)); transform-origin: top center; perspective: none; }
+.archive-panel { position: absolute; inset: 0; min-height: 0; pointer-events: none; }
+.folder-stack { position: absolute; top: 60px; left: 80px; width: 230px; height: 340px; min-height: 0; margin: 0; pointer-events: auto; }
+.case-folder { width: 180px; }
+.folder-name { font-size: 28px; }
+.case-workspace { position: absolute; inset: 0; width: 1400px; height: 900px; min-height: 0; margin: 0; pointer-events: none; }
+.case-board { position: absolute; inset: 0; width: 100%; height: 100%; transform-origin: 30% 40%; }
+.case-file { min-height: 0; width: 100%; height: 100%; }
+.case-open .case-board { pointer-events: none; }
+.case-open .record-sheet, .case-open .evidence-card { pointer-events: auto; }
+.idle-message { display: none; }
+@keyframes extractRight {
+  from { opacity: 0; transform: translateX(-80px) rotate(-4deg) scale(.98); }
+  70% { opacity: 1; transform: translateX(4px) rotate(.3deg); }
+  to { opacity: 1; transform: none; }
+}
+.record-sheet { inset: 40px auto auto 455px; width: 560px; height: auto; aspect-ratio: 1448 / 2048; padding: 0; border: 0; cursor: zoom-in; }
+.record-image { object-fit: contain; }
+.evidence-card.id-card { inset: 260px auto auto 340px; width: 170px; aspect-ratio: 638 / 1015; transform-origin: left top; }
+.evidence-card.notes { inset: 545px auto auto 1090px; width: 190px; aspect-ratio: .74; }
+.evidence-card.notes .evidence-surface::after { left: auto; bottom: auto; }
+.handwritten-note { font-size: 18px; }
+.pen-system { inset: 420px auto auto 830px; width: 440px; --pen-start-angle: -100deg; }
+/* Full barrel coverage hides the original brand at every viewport size. */
+.pen-crop::after { content: ''; position: absolute; left: 42.5%; top: 24%; width: 23.5%; height: 46%; border-radius: 2px; background: linear-gradient(#f4f4f8, #fff 42%, #eeedf3); }
+.pen-roll { transform-origin: center; }
+.case-open .pen-roll { animation: barrelRoll var(--pen-duration) var(--pen-delay) both linear; }
+@keyframes barrelRoll {
+  0%, 30%, 63%, 100% { transform: scaleY(1); filter: brightness(1); }
+  15%, 47% { transform: scaleY(.78); filter: brightness(.88); }
+  78% { transform: scaleY(.9); filter: brightness(.95); }
+  90% { transform: scaleY(.97); }
+}
+.coffee-object { position: absolute; z-index: 20; inset: 20px auto auto 1090px; width: 270px; aspect-ratio: 1; padding: 0; border: 0; background: none; cursor: pointer; filter: drop-shadow(6px 14px 10px #0002); transition: filter .2s; }
+.coffee-object:hover { filter: drop-shadow(6px 18px 13px #0003); }
+.coffee-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+.latte-code { position: absolute; left: 29%; top: 29%; width: 40%; height: 40%; display: grid; place-items: center; }
+.latte-code svg { display: block; width: 100%; height: 100%; }
+.latte-code.is-unconfigured::after { content: 'QR'; font: 500 36px Georgia, serif; color: #684024; border-bottom: 1px solid #68402488; }
+.coffee-label { position: absolute; top: 100%; left: 0; width: 100%; font: 12px/1.5 ui-monospace, monospace; letter-spacing: .08em; color: #45423d; }
+.reset-button { right: max(20px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); margin: 0; min-height: 44px; }
+/* The detail view uses the available height as well as width. */
+.evidence-dialog { width: min(920px, calc(100vw - 24px)); height: min(860px, calc(100dvh - 24px)); max-height: calc(100dvh - 24px); overflow: auto; }
+.modal-shell { min-height: 100%; height: 100%; grid-template-rows: auto minmax(0, 1fr) auto; gap: 14px; padding: clamp(14px, 3vw, 28px); }
+.modal-head { min-width: 0; }
+.close-button { flex: 0 0 44px; width: 44px; height: 44px; }
+.modal-visual { width: 100%; height: 100%; min-height: 0; max-height: none; overflow: hidden; container-type: size; }
+.modal-visual .evidence-surface { height: 100%; width: auto; max-width: 95%; max-height: 100%; transform: none; }
+.modal-idCard .evidence-surface, .modal-idCard .evidence-surface:hover { width: min(360px, 92cqw, 62.85cqh); height: auto; aspect-ratio: 638 / 1015; transform: none; }
+.modal-document .evidence-surface { width: min(96cqw, 70.7cqh); height: auto; aspect-ratio: 1448 / 2048; }
+.modal-notes .evidence-surface { width: min(360px, 92cqw, 74cqh); height: auto; aspect-ratio: .74; background: #202734; border: 8px solid #f1f1f1; }
+.modal-foot { gap: 8px; font-size: 10px; line-height: 1.6; letter-spacing: .02em; }
+.share-dialog { width: min(440px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); border: 0; border-radius: 8px; padding: 24px; background: #f5f0e7; color: #332b24; box-shadow: 0 24px 80px #0004; }
+.share-dialog::backdrop { background: #0007; backdrop-filter: blur(4px); }
+.share-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.share-head h2 { font-size: 20px; margin: 0; }
+.share-qr { width: min(280px, 100%); margin: 20px auto; }
+.share-qr svg { display: block; width: 100%; height: auto; }
+.share-dialog p { font-size: 13px; line-height: 1.65; }
+#shareLink { display: block; overflow-wrap: anywhere; font-size: 12px; color: #704426; margin: 12px 0 20px; }
+#shareSettings { border-top: 1px solid #cfc4b4; padding-top: 14px; font-size: 13px; }
+#shareSettings summary { min-height: 30px; cursor: pointer; }
+#shareForm { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+#shareForm label { width: 100%; }
+#shareUrl { width: 100%; min-width: 0; font: inherit; font-size: 16px; padding: 12px; background: #fffdf8; color: #332b24; border: 1px solid #b8ad9e; border-radius: 4px; }
+#shareForm button { min-height: 44px; padding: 8px 12px; border: 1px solid #b8ad9e; border-radius: 4px; background: #fffdf8; color: #332b24; cursor: pointer; }
+#shareForm button[type=submit] { background: #69462e; color: #fff; }
+@media (max-width: 980px) and (orientation: portrait) {
+  .room-header { top: max(16px, env(safe-area-inset-top)); left: max(16px, env(safe-area-inset-left)); right: max(16px, env(safe-area-inset-right)); }
+  .room-heading { font-size: 11px; }
+  .room-heading span { display: none; }
+  .room-clock { font-size: 10px; }
+  .desk, .case-workspace { width: 420px; height: 790px; }
+  .folder-stack { inset: 18px auto auto 42px; width: 140px; height: 205px; min-height: 0; }
+  .case-folder { width: 105px; }
+  .case-folder.is-selected { transform: translate(calc(var(--folder-x) - 10px), calc(var(--folder-y) + 25px)) rotate(-8deg); }
+  .folder-code { font-size: 8px; }
+  .folder-name { font-size: 18px; }
+  .case-tape { padding: 5px 7px; font-size: 9px; }
+  .coffee-object { inset: 0 auto auto 250px; width: 154px; }
+  .coffee-label { font-size: 10px; }
+  .latte-code.is-unconfigured::after { font-size: 24px; }
+  .record-sheet { inset: 236px auto auto 56px; width: 304px; }
+  .evidence-card.id-card { inset: 375px auto auto 25px; width: 97px; }
+  .evidence-card.notes { inset: 595px auto auto 278px; width: 105px; }
+  .evidence-card.notes .evidence-surface { border-width: 5px; }
+  .evidence-card.notes .evidence-surface::after { border-width: 3px; }
+  .handwritten-note { font-size: 12px; }
+  .pen-system { inset: 554px auto auto 172px; width: 220px; --pen-delay: 2.65s; --pen-start-angle: -88deg; }
+  .case-open .evidence-card.id-card { animation-delay: .85s; }
+  .case-open .evidence-card.notes { animation-delay: 1.75s; }
+  .reset-button { font-size: 10px; }
+  .modal-foot { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .case-open .case-board, .case-open .pen-roll { animation-duration: .01ms !important; animation-delay: 0s !important; }
+}

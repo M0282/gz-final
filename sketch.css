@@ -1,0 +1,416 @@
+/* Clean desk layout tuned to the user's final composite reference. */
+:root {
+  color-scheme: light;
+  --desk-bg: #a7a7a7;
+  --sheet-shadow: 0 22px 42px rgba(0, 0, 0, .18);
+  --paper-shadow: 0 10px 20px rgba(0,0,0,.16);
+}
+
+html, body {
+  background: var(--desk-bg);
+}
+
+body {
+  color: #222;
+  overflow: auto;
+}
+
+.room {
+  min-height: max(860px, 100dvh);
+  height: auto;
+  background: var(--desk-bg);
+}
+
+.room::before,
+.room::after {
+  display: none;
+}
+
+.noise {
+  opacity: .018;
+  animation: none;
+}
+
+.room-background {
+  display: none;
+}
+
+.room-header {
+  top: 24px;
+  left: 28px;
+  right: 28px;
+}
+
+.room-heading {
+  color: rgba(0,0,0,.26);
+  text-shadow: none;
+  font: 600 13px/1.4 ui-monospace, monospace;
+  letter-spacing: .18em;
+}
+
+.room-heading span,
+.room-clock {
+  color: rgba(0,0,0,.28);
+  text-shadow: none;
+}
+
+.desk {
+  inset: 82px 24px 24px;
+  max-width: 1280px;
+  grid-template-columns: 230px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  perspective: none;
+}
+
+.archive-panel {
+  min-height: 220px;
+}
+
+.folder-stack {
+  top: 10px;
+  left: 6px;
+  width: 190px;
+  height: 220px;
+  min-height: 220px;
+  filter: drop-shadow(0 12px 22px rgba(0,0,0,.18));
+}
+
+.stack-shadow {
+  display: none;
+}
+
+.case-folder {
+  width: 165px;
+  aspect-ratio: .72;
+}
+
+.archive-hint { display: none !important; }
+
+.case-workspace {
+  min-height: 860px;
+}
+
+.idle-message {
+  color: rgba(255,255,255,.5);
+}
+
+.case-board {
+  inset: 0;
+  width: 100%;
+  transform: translateX(-12%) rotate(-4.5deg) scale(.95);
+  transform-origin: 12% 20%;
+}
+
+.case-open .case-board {
+  animation: extractRight .85s .04s both cubic-bezier(.18,.82,.24,1);
+}
+
+@keyframes extractRight {
+  0% { opacity: 0; transform: translateX(-12%) rotate(-6deg) scale(.93); }
+  64% { opacity: 1; transform: translateX(1.6%) rotate(-2.1deg) scale(1.006); }
+  100% { opacity: 1; transform: translateX(0) rotate(-2.4deg) scale(1); }
+}
+
+.case-file {
+  min-height: 900px;
+  height: 100%;
+  filter: none;
+}
+
+.record-underlay {
+  display: none;
+}
+
+.record-sheet {
+  z-index: 3;
+  top: 1.5%;
+  left: 15%;
+  width: 63%;
+  aspect-ratio: 1448 / 2048;
+  height: auto;
+  overflow: visible;
+  background: transparent;
+  box-shadow: var(--sheet-shadow);
+  transform: rotate(0deg);
+}
+
+
+.record-sheet::after,
+.record-sheet::before {
+  display: none;
+}
+
+.record-image {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: none;
+}
+
+
+.record-placeholder {
+  display: none;
+}
+
+.evidence-card {
+  filter: drop-shadow(0 10px 14px rgba(0,0,0,.18));
+}
+
+.evidence-card:hover,
+.evidence-card:focus-visible {
+  filter: drop-shadow(0 14px 18px rgba(0,0,0,.24));
+}
+
+.evidence-card::after {
+  color: rgba(0,0,0,.7);
+  text-shadow: none;
+  background: rgba(255,255,255,.9);
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.evidence-surface {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.evidence-surface::before {
+  display: none;
+}
+
+.evidence-image {
+  object-fit: contain;
+}
+
+.evidence-card.portrait,
+.small-memo {
+  display: none !important;
+}
+
+.evidence-card.id-card {
+  top: 24%;
+  left: 5.2%;
+  width: 18.8%;
+  aspect-ratio: 638 / 1015;
+  transform: rotate(-15deg);
+  transform-origin: 22% 16%;
+}
+
+.case-open .evidence-card.id-card {
+  animation: idArrive .82s 1.02s both cubic-bezier(.18,.78,.24,1);
+}
+
+@keyframes idArrive {
+  0% {
+    opacity: 0;
+    transform: translate3d(-20px,-78px,0) rotate(-32deg) scale(.99);
+  }
+  14% { opacity: 1; }
+  70% { transform: translate3d(2px,5px,0) rotate(-13deg) scale(1.01); }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,0,0) rotate(-15deg) scale(1);
+  }
+}
+
+.evidence-card.id-card .evidence-surface,
+.modal-idCard .evidence-surface {
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.evidence-card.id-card .evidence-image,
+.modal-idCard .evidence-image {
+  background: #fff;
+}
+
+.evidence-card.notes {
+  left: auto;
+  right: 4.3%;
+  bottom: 1.2%;
+  width: 24.5%;
+  aspect-ratio: .74;
+  transform: rotate(12deg);
+}
+
+.case-open .evidence-card.notes {
+  animation: notesDrop .92s 2.2s both linear;
+}
+
+@keyframes notesDrop {
+  0% {
+    opacity: 0;
+    transform: translate3d(18px,-52vh,0) rotate(16deg) scale(1.03);
+    filter: drop-shadow(12px 28px 14px rgba(0,0,0,.08));
+    animation-timing-function: cubic-bezier(.42,0,.88,.55);
+  }
+  10% { opacity: 1; }
+  62% {
+    transform: translate3d(0,0,0) rotate(10deg) scale(1);
+    filter: drop-shadow(3px 4px 0 rgba(0,0,0,.24));
+    animation-timing-function: cubic-bezier(.16,.7,.3,1);
+  }
+  78% { transform: translate3d(-1px,-10px,0) rotate(13deg); }
+  100% {
+    opacity: 1;
+    transform: translate3d(0,0,0) rotate(12deg) scale(1);
+    filter: drop-shadow(3px 5px 0 rgba(0,0,0,.22));
+  }
+}
+
+.evidence-card.notes::before,
+.evidence-card.notes::after {
+  content: "";
+  position: absolute;
+  inset: 4% 5% -3% 2%;
+  background: #ebebeb;
+  box-shadow: 0 1px 0 rgba(0,0,0,.12);
+  transform: rotate(-8deg);
+  z-index: -2;
+}
+
+.evidence-card.notes::after {
+  inset: 2% 2% -1% 4%;
+  background: #d7d7d7;
+  transform: rotate(-3deg);
+  z-index: -1;
+}
+
+.evidence-card.notes .evidence-surface {
+  position: relative;
+  background: linear-gradient(180deg, #202734, #202734);
+  border: 8px solid #f1f1f1;
+  box-shadow: var(--paper-shadow);
+}
+
+.evidence-card.notes .evidence-surface::after {
+  content: "";
+  position: absolute;
+  top: -10%;
+  right: 5%;
+  width: 18%;
+  height: 28%;
+  border: 5px solid #57656c;
+  border-radius: 26px;
+  transform: rotate(16deg);
+  background: transparent;
+  box-shadow: 0 1px 1px rgba(255,255,255,.5) inset;
+}
+
+.handwritten-note {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  padding: 0;
+  color: rgba(255,255,255,.78);
+  font: 600 clamp(16px, 1.4vw, 20px)/1.4 ui-monospace, monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  text-align: center;
+  display: grid;
+  place-items: center;
+  transform: none;
+}
+
+.handwritten-note::before {
+  content: "PHOTO SLOT\A(추후 교체)";
+  white-space: pre;
+}
+
+.evidence-card.notes .evidence-image {
+  display: none;
+}
+
+.pen-system {
+  top: 43.5%;
+  right: 2.1%;
+  width: 47%;
+  z-index: 12;
+  --pen-delay: 3.05s;
+  --pen-duration: 1.8s;
+  --pen-rest-angle: -11deg;
+  --pen-start-angle: -108deg;
+}
+
+
+.pen-shadow {
+  opacity: .46;
+}
+
+
+.reset-button {
+  color: #222;
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(0,0,0,.18);
+  box-shadow: 0 8px 20px rgba(0,0,0,.12);
+  backdrop-filter: none;
+}
+
+.reset-button:hover {
+  background: #fff;
+}
+
+.evidence-dialog {
+  color: #222;
+  background: rgba(250,250,250,.98);
+}
+
+.evidence-dialog::backdrop {
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(4px);
+}
+
+.modal-shell {
+  background: #f6f6f4;
+}
+
+.modal-label,
+.modal-foot {
+  color: rgba(0,0,0,.5);
+}
+
+.modal-title {
+  color: #222;
+}
+
+.close-button {
+  color: #222;
+  background: #e7e7e4;
+}
+
+.modal-visual {
+  width: min(78vw, 760px);
+}
+
+.modal-visual .evidence-surface {
+  filter: drop-shadow(0 18px 28px rgba(0,0,0,.18));
+}
+
+.modal-idCard {
+  cursor: pointer;
+}
+
+.modal-idCard .evidence-surface {
+  width: min(360px, 60vw);
+  aspect-ratio: 638 / 1015;
+  transform: rotate(-1deg);
+  transition: transform .18s ease, filter .18s ease;
+}
+
+.modal-idCard .evidence-surface:hover {
+  transform: rotate(0deg) scale(1.01);
+}
+
+.modal-notes .evidence-surface {
+  width: min(360px, 58vw);
+  aspect-ratio: .74;
+  transform: rotate(2deg);
+}
+

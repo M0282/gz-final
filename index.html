@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050606" />
+  <meta name="description" content="조사실 책상 위 사건 서류를 꺼내 증거물을 살펴보는 인터랙티브 프로토타입" />
+  <title>記録アーカイブ · CASE 017</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23090d10'/%3E%3Cpath d='M14 18h21l5 6h10v25H14z' fill='%239e7d52'/%3E%3Cpath d='M19 29h26v15H19z' fill='%23e1d7bd'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="sketch.css" />
+  <link rel="stylesheet" href="responsive.css" />
+  <link rel="stylesheet" href="atmosphere.css" />
+  <link rel="stylesheet" href="art-direction.css" />
+</head>
+<body>
+  <main class="room" id="room" aria-label="사건 기록 조사실 프로토타입">
+    <div class="table-surface" aria-hidden="true"></div>
+
+    <header class="room-header">
+      <h1 class="room-heading">記録アーカイブ<span>PERSONAL ARCHIVE · 017</span></h1>
+      <div class="room-clock">記録閲覧<br />保管ファイル · 05</div>
+    </header>
+
+    <section class="desk" aria-label="조사실 책상">
+      <div class="coffee-object" id="coffeeObject" role="img" aria-hidden="true" aria-label="오른쪽 위 손잡이의 흰 머그컵에 담긴 아메리카노">
+        <img class="coffee-image" src="assets/coffee-americano.png" alt="" />
+      </div>
+      <button class="qr-note" id="qrNoteButton" type="button" aria-hidden="true" inert aria-label="QR 포스트잇 · 휴대폰으로 이어보기">
+        <span class="note-heading">TAKE A NOTE</span>
+        <span class="latte-code" id="latteCode" aria-hidden="true"></span>
+        <span class="note-label" lang="ja">スマートフォンで開く ↗</span>
+      </button>
+      <div class="contact-note" aria-label="연락처: PARK GEUMJOO, 003f70@gmail.com">
+        <img class="contact-signature" src="assets/geumjoo-signature.png" alt="PARK GEUMJOO · 003f70@gmail.com" />
+      </div>
+      <aside class="archive-panel" aria-label="사건 파일 다섯 개">
+        <div class="folder-stack">
+          <div class="stack-shadow" aria-hidden="true"></div>
+
+          <button class="case-folder" type="button" data-case="013" aria-pressed="false" aria-label="사건 013 무응답 구역 열기">
+            <span class="folder-preview" aria-hidden="true"></span>
+            <span class="folder-surface">
+              <span class="folder-code">ARCHIVE / 013</span>
+              <span class="folder-name">非公開ファイル</span>
+            </span>
+          <span class="folder-status">자료 준비 중</span>
+          </button>
+
+          <button class="case-folder" type="button" data-case="015" aria-pressed="false" aria-label="사건 015 목격자 진술 열기">
+            <span class="folder-preview" aria-hidden="true"></span>
+            <span class="folder-surface">
+              <span class="folder-code">ARCHIVE / 015</span>
+              <span class="folder-name">非公開ファイル</span>
+            </span>
+          <span class="folder-status">자료 준비 중</span>
+          </button>
+
+          <button class="case-folder" type="button" data-case="017" aria-pressed="false" aria-label="사건 017 사라진 오후 열기">
+            <span class="folder-preview" aria-hidden="true"></span>
+            <span class="folder-surface" data-asset-host>
+              <img class="folder-cover-image" data-asset="case017.folderCover" alt="" />
+              <span class="folder-code">CASE / 017 · OPEN</span>
+              <span class="folder-name">WEEプロジェクト</span>
+              <span class="case-tape">TARGET 001</span>
+            </span>
+          <span class="folder-status">기록 열람</span>
+          </button>
+
+          <button class="case-folder" type="button" data-case="021" aria-pressed="false" aria-label="사건 021 추락 신호 열기">
+            <span class="folder-preview" aria-hidden="true"></span>
+            <span class="folder-surface">
+              <span class="folder-code">ARCHIVE / 021</span>
+              <span class="folder-name">非公開ファイル</span>
+            </span>
+          <span class="folder-status">자료 준비 중</span>
+          </button>
+
+          <button class="case-folder" type="button" data-case="023" aria-pressed="false" aria-label="사건 023 미분류 기록 열기">
+            <span class="folder-preview" aria-hidden="true"></span>
+            <span class="folder-surface proposal-cover">
+              <img class="proposal-cover-image" src="assets/proposal-cover.png" alt="" />
+              <span class="folder-name">プロジェクト企画書</span>
+            </span>
+          <span class="folder-status">자료 준비 중</span>
+          </button>
+        </div>
+
+        
+      </aside>
+
+      <section class="case-workspace" id="caseWorkspace" aria-hidden="true" aria-label="선택한 사건 기록" inert>
+        <div class="idle-message" aria-hidden="true">Select a case file</div>
+
+        <article class="case-board" aria-label="CASE 017 사건 기록">
+          <section class="pending-record" id="pendingRecord" aria-label="비공개 기록" hidden>
+            <img class="private-record-image" data-asset="case017.privateDocument" alt="비공개 처리된 사건 기록" />
+            <p class="pending-code" id="pendingCode" hidden></p>
+            <h2 id="pendingTitle" hidden></h2>
+          </section>
+          <div class="case-file" id="caseFile">
+            <div class="record-underlay one" aria-hidden="true"></div>
+            <div class="record-underlay two" aria-hidden="true"></div>
+
+            <button class="record-sheet" type="button" data-asset-host data-slot="document" aria-label="사건 개요 문서 확대">
+              <img class="record-image" data-asset="case017.document" alt="CASE 017 사건 기록 문서" />
+              <div class="record-placeholder">
+                <p class="record-kicker">Detailed Record of School Life</p>
+                <h2 class="record-title">學校生活詳細事項記錄</h2>
+                <div class="record-fields">
+                  <div class="record-field"><span>대상</span><span>미기입</span></div>
+                  <div class="record-field"><span>상태</span><span>OPEN</span></div>
+                  <div class="record-field"><span>확인 시각</span><span>16:17</span></div>
+                  <div class="record-field"><span>분류</span><span>017-B</span></div>
+                </div>
+                <div class="record-section identification">人的 · 事項<small>Student Identification</small></div>
+                <div class="record-section academic">敎科學習發達狀況<small>Academic Performance</small></div>
+                <span class="record-signature">Yours,</span>
+                <span class="record-stamp">TOP SECRET</span>
+              </div>
+            </button>
+
+            <button class="evidence-card id-card" type="button" data-slot="idCard" data-caption="ID / 01" aria-label="신분 기록 확대">
+              <span class="evidence-surface sketch-id" data-asset-host>
+                <img class="evidence-image" data-asset="case017.idCard" alt="신분 기록 이미지" />
+              </span>
+            </button>
+
+            <button class="evidence-card portrait" type="button" data-slot="portrait" data-caption="PHOTO / 02" aria-label="인물 사진 확대">
+              <span class="evidence-surface sketch-portrait" data-asset-host>
+                <img class="evidence-image" data-asset="case017.portrait" alt="인물 사진" />
+              </span>
+            </button>
+
+            <button class="evidence-card notes" type="button" data-slot="notes" data-caption="EVIDENCE PHOTO / 証拠写真" aria-label="증거사진 확대">
+              <span class="evidence-surface sketch-notes" data-asset-host>
+                <img class="evidence-image" data-asset="case017.notes" alt="증거사진" />
+              </span>
+            </button>
+
+            <div class="small-memo" aria-hidden="true">흠…<br />: ㅡ ㅡ ?</div>
+
+            <div class="pen-system" data-asset-host role="img" aria-label="오른쪽 끝을 고정한 채 몸통이 자전하며 굴러 들어오는 볼펜">
+              <span class="pen-shadow" aria-hidden="true"></span>
+              <span class="pen-roll">
+                <span class="pen-crop">
+                  <img class="pen-face" data-asset="case017.pen" alt="" />
+                </span>
+                <span class="pen-barrel" aria-hidden="true"><span class="barrel-facet" style="--facet:0"></span><span class="barrel-facet" style="--facet:1"></span><span class="barrel-facet" style="--facet:2"></span><span class="barrel-facet" style="--facet:3"></span><span class="barrel-facet" style="--facet:4"></span><span class="barrel-facet" style="--facet:5"></span><span class="barrel-facet" style="--facet:6"></span><span class="barrel-facet" style="--facet:7"></span></span>
+              </span>
+            </div>
+          </div>
+        </article>
+      </section>
+    </section>
+
+    <div class="scene-light" aria-hidden="true"></div>
+
+
+    <button class="reset-button" id="resetButton" type="button" hidden>ファイル選択へ・もどる · ESC</button>
+
+    <dialog class="evidence-dialog" id="evidenceDialog" aria-labelledby="modalTitle">
+      <div class="modal-shell">
+        <header class="modal-head">
+          <div>
+            <p class="modal-label">CASE 017 · EVIDENCE DETAIL / 証拠詳細</p>
+            <h2 class="modal-title" id="modalTitle">EVIDENCE · 証拠資料</h2>
+          </div>
+          <button class="close-button" id="closeDialog" type="button" aria-label="Close / 閉じる">×</button>
+        </header>
+        <div class="modal-visual" id="modalVisual"></div>
+        <footer class="modal-foot"><span>AUTHORIZED VIEW / 閲覧許可</span><span id="modalHint">ESC / Click outside to close · 背景をクリックして閉じる</span></footer>
+      </div>
+    </dialog>
+
+    <dialog class="proposal-dialog evidence-dialog" id="proposalDialog" aria-labelledby="proposalTitle">
+      <header class="proposal-header"><h2 id="proposalTitle">PROJECT PLAN · プロジェクト計画書</h2><button type="button" class="close-button" id="closeProposal" aria-label="Close / 閉じる">×</button></header>
+      <button class="proposal-page" id="proposalPage" type="button" aria-label="다음 페이지"><img id="proposalImage" src="assets/proposal-02.png" alt="프로젝트 기획서 2번 페이지" /></button>
+      <footer class="proposal-controls"><button type="button" id="proposalPrev" aria-label="이전 페이지">←</button><span id="proposalCounter" aria-live="polite"></span><button type="button" id="proposalNext" aria-label="다음 페이지">→</button></footer>
+      <p class="proposal-hint">Click page to turn · クリックして次へ</p>
+    </dialog>
+    <div class="noise" aria-hidden="true"></div>
+    <dialog class="share-dialog" id="shareDialog" aria-labelledby="shareTitle">
+      <div class="share-head"><div><p class="modal-label">TAKE YOUR ARCHIVE / 記録を持ち出す</p><h2 id="shareTitle">OPEN ON MOBILE<br />スマートフォンで開く</h2></div><button class="close-button" id="closeShare" type="button" aria-label="Close / 閉じる">×</button></div>
+      <div class="share-qr" id="shareQr"></div>
+      <p id="shareStatus" role="status"></p>
+      <a id="shareLink" target="_blank" rel="noopener" hidden></a>
+      <details id="shareSettings"><summary>LINK SETTINGS / リンク設定</summary>
+        <form id="shareForm"><label for="shareUrl">Mobile-accessible URL / スマートフォンで開けるURL</label><input id="shareUrl" name="url" type="url" placeholder="http://192.168.0.10:8000/" autocomplete="url" required /><button type="submit">CREATE QR / QRを作成</button><button id="resetShareUrl" type="button">USE THIS URL / 現在のURL</button></form>
+        <p class="share-help">Use the PC's IPv4 address on the same Wi-Fi, or a published site URL.<br />同じWi-FiではPCのIPv4アドレス、公開サイトでは公開URLを使用してください。</p>
+      </details>
+    </dialog>
+  </main>
+
+  <script src="assets/case-assets.js"></script>
+  <script src="assets/qrcode.js"></script>
+  <script src="app.js"></script>
+  <script src="responsive.js"></script>
+  <script src="share.js"></script>
+</body>
+</html>
