@@ -155,27 +155,29 @@
   .room:not(.case-open) .case-folder[data-case='017'] { --closed-x: 72px; --closed-y: 300px; --closed-angle: -2deg; }
   .room:not(.case-open) .case-folder[data-case='021'] { --closed-x: 243px; --closed-y: 355px; --closed-angle: -12deg; }
   .room:not(.case-open) .case-folder[data-case='023'] { --closed-x: 90px; --closed-y: 542px; --closed-angle: 12deg; }
-  .case-open .case-folder { left: 42px; top: 216px; width: 324px; }
+  .case-open .case-folder { left: 42px; top: 18px; width: 324px; }
   .case-open .case-folder.is-selected { transform: rotate(-3deg); }
   .case-open .folder-code { font-size: 10px; }
   .case-open .folder-name { font-size: 25px; }
   .case-open .case-tape { font-size: 11px; }
   .record-underlay { width: 278px; }
-  .record-underlay.one { inset: 260px auto auto 68px; transform: rotate(-15deg); }
-  .record-underlay.two { inset: 251px auto auto 73px; transform: rotate(3deg); }
-  .record-sheet, .pending-record { inset: 223px auto auto 40px; width: 332px; padding: 0; }
-  .evidence-card.id-card { left: 18px; top: 366px; width: 114px; }
-  .evidence-card.notes { left: 230px; top: 552px; width: 145px; }
-  .pen-system { top: 523px; }
-  .coffee-object { inset: 155px auto auto 292px; width: 125px; }
-  .qr-note { left: 220px; top: 310px; width: 112px; height: 130px; padding: 9px; }
-  .contact-note { left: 38px; top: 639px; width: 148px; height: 128px; padding: 20px 8px 14px; }
+  /* Keep the opened documents just below the header, in 420px stage coordinates. */
+  .record-underlay.one { inset: 62px auto auto 68px; transform: rotate(-15deg); }
+  .record-underlay.two { inset: 53px auto auto 73px; transform: rotate(3deg); }
+  .record-sheet, .pending-record { inset: 25px auto auto 40px; width: 332px; padding: 0; }
+  .evidence-card.id-card { left: 18px; top: 168px; width: 114px; }
+  .evidence-card.notes { left: 230px; top: 354px; width: 145px; }
+  .pen-system { top: 325px; }
+  .coffee-object { inset: 0 auto auto 310px; width: 105px; }
+  /* Below the record's portrait and towards the right edge. */
+  .qr-note { left: 290px; top: 212px; width: 112px; height: 130px; padding: 9px; }
+  .contact-note { left: 38px; top: 441px; width: 148px; height: 128px; padding: 20px 8px 14px; }
   .qr-note::before { width: 14px; height: 14px; }
   .note-heading { font-size: 7px; }
   .qr-note .latte-code { width: 78px; height: 78px; margin: 5px auto; }
   .note-label { font-size: 8px; }
   .latte-code.is-unconfigured::after { font-size: 11px; }
-  .room { --pool-x: 50%; --pool-y: calc(var(--stage-top, 68px) + 460px * var(--desk-scale, .7)); --pool-radius: calc(255px * var(--desk-scale, .7)); }
+  .room { --pool-x: 50%; --pool-y: calc(var(--stage-top, 68px) + 262px * var(--desk-scale, .7)); --pool-radius: calc(255px * var(--desk-scale, .7)); }
   .reset-button { right: 12px; }
 }
 /* One timeline in desktop and mobile: photo → note → ID → coffee → pen. */
