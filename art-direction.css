@@ -170,7 +170,7 @@
   .pen-system { top: 325px; }
   .coffee-object { inset: 0 auto auto 310px; width: 105px; }
   /* Below the record's portrait and towards the right edge. */
-  .qr-note { left: 290px; top: 212px; width: 112px; height: 130px; padding: 9px; }
+  .qr-note { left: 290px; top: 190px; width: 112px; height: 130px; padding: 9px; }
   .contact-note { left: 38px; top: 441px; width: 148px; height: 128px; padding: 20px 8px 14px; }
   .qr-note::before { width: 14px; height: 14px; }
   .note-heading { font-size: 7px; }
